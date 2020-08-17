@@ -1,0 +1,15 @@
+<div #application>
+    <iui-treeview [items]="items" [appRef]="applicationRef" [controlStyle]="ctrlStyle" #treeview>
+        <ng-template let-item>
+            <div (mouseenter)="hoverItem=item" (mouseleave)="hoverItem=null">
+                <span *ngIf="item!=editItem" (mouseup)="showEditor(item)">{{item.text}}</span>
+                <input *ngIf="item==editItem" type="text" [(ngModel)]="item.text" (keydown)="editorKeyDown($event)" [iuiFocus]="editorFocused" (focus)="selectContent($event)" (blur)="editorLostFocus()" />
+                <div class="trw-add-dynamic-toolbar" *ngIf="item==hoverItem">
+                    <span class="trw-add-dynamic-item-button trw-add-dynamic-item-button-delete" (click)="deleteItem(item)" [iuiTooltip]="{ appRef: applicationRef, title: 'Delete' }"></span>
+                    <span class="trw-add-dynamic-item-button trw-add-dynamic-item-button-add-child" (click)="addChild(item)" [iuiTooltip]="{ appRef: applicationRef, title: 'Add Child' }"></span>
+                    <span class="trw-add-dynamic-item-button trw-add-dynamic-item-button-add-root" (click)="addRoot()" [iuiTooltip]="{ appRef: applicationRef, title: 'Add Root' }"></span>
+                </div>
+            </div>
+        </ng-template>
+    </iui-treeview>
+</div>
